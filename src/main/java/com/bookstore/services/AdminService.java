@@ -1,11 +1,13 @@
 package com.bookstore.services;
 
 import com.bookstore.dtos.AdminDTO;
+import com.bookstore.dtos.LoginDTO;
 import com.bookstore.models.Admin;
 import com.bookstore.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,7 +74,7 @@ public class AdminService {
         return adminRepository.deleteById(id);
     }
 
-    public AdminDTO login(LoginDTO loginDTO) {
+    public AdminDTO login(@Valid LoginDTO loginDTO) {
         Optional<Admin> admin = adminRepository.findByEmail(loginDTO.getEmail());
 
         if (admin.isPresent() && admin.get().getPassword().equals(loginDTO.getPassword())) {
