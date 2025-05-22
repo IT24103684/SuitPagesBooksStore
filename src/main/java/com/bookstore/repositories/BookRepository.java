@@ -101,7 +101,6 @@ public class BookRepository {
     }
 
     public Book save(Book book) {
-
         for (Book existingBook : books) {
             if (existingBook.getId().equals(book.getId())) {
                 books.remove(existingBook);

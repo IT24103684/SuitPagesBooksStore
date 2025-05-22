@@ -24,14 +24,13 @@ public class OrderRepository {
             String[] parts = line.split(",");
             if (parts.length >= 5) {
                 Order order = new Order(
-                        parts[0], // id
-                        parts[1], // userId
-                        parts[2], // address
-                        parts[3], // status
-                        LocalDateTime.parse(parts[4]) // orderDate
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        LocalDateTime.parse(parts[4])
                 );
 
-                // Process items (if any)
                 for (int i = 5; i < parts.length; i++) {
                     String[] itemParts = parts[i].split(":");
                     if (itemParts.length == 3) {
@@ -69,7 +68,6 @@ public class OrderRepository {
     }
 
     public Order save(Order order) {
-        // If order exists, update it
         Optional<Order> existingOrder = findById(order.getId());
 
         if (existingOrder.isPresent()) {

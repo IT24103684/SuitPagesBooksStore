@@ -24,11 +24,9 @@ public class FeedbackDTO {
     
     private LocalDateTime createdAt;
 
-    // Default constructor
     public FeedbackDTO() {
     }
 
-    // Constructor for creating new feedback
     public FeedbackDTO(String bookId, String userId, String comment, Integer stars) {
         this.bookId = bookId;
         this.userId = userId;
@@ -37,7 +35,6 @@ public class FeedbackDTO {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Full constructor
     public FeedbackDTO(String id, String bookId, String userId, String comment, Integer stars, LocalDateTime createdAt) {
         this.id = id;
         this.bookId = bookId;
@@ -47,7 +44,6 @@ public class FeedbackDTO {
         this.createdAt = createdAt;
     }
 
-    // Getters and setters
     public String getId() {
         return id;
     }

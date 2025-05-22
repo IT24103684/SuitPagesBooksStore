@@ -1,0 +1,9 @@
+246d1644-4501-479f-8de2-c4602af6d6aa,Richard Dawkins,Male,https://cdn.britannica.com/49/199349-050-15335F6C/Richard-Dawkins-2007.jpg,84
+ff3ac38c-cc01-482f-9ab4-7b29c5a661c3,Stephen Hawking,Male,https://images.openai.com/thumbnails/513e1c8509b14c47bac296206f2a2e5d.jpeg,76
+2c0ec818-845c-4138-95f1-6e40f65e5437,Carl Sagan,Male,https://cdn.britannica.com/36/194736-050-CA5BE18B/Carl-Sagan-science-writer-American.jpg,62
+cf4d29b9-d4fd-4452-9e47-aad8c27b6b15,Patrick Rothfuss,Male,https://th.bing.com/th/id/R.35a4a954375e88ec121a09f312972b0f?rik=GqFUMP0aQHqwPw&pid=ImgRaw&r.jpeg,51
+64302958-9a6b-4545-8e1a-23d03e9ec76e,Samantha Shannon,Female,https://th.bing.com/th/id/OIP.pA2rNt4U-b3QjGtO-8GuYQHaKX?w=132&h=184&c=7&r=0&o=7&cb=iwp1&dpr=1.3&pid=1.7&rm=3.jpg,33
+99177c6b-a409-4018-aea7-2071df23c870,Stephen Edwin King,Male,https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Stephen_King_at_the_2024_Toronto_International_Film_Festival_2_%28cropped%29.jpg/500px-Stephen_King_at_the_2024_Toronto_International_Film_Festival_2_%28cropped%29.jpg,77
+ced68e5f-198a-49b2-a084-e3a895349284,Harper Lee,Female,https://th.bing.com/th/id/OIP.7vwPKv8LlKOGYwIYRUPxAgHaKr?cb=iwp2&rs=1&pid=ImgDetMain.jpg,89
+f21ec4d0-0b6f-4fbf-9696-280f5e57a8c0,JK Rowling,Male,https://s3.eu-west-2.amazonaws.com/staticgh.gentinghotel.co.uk/uploads/hero/SuiteNov2022_0008_1920.jpg,24
+3db1787b-b943-4895-bdb5-4f482375efbd,JRR Talkei,Male,https://s3.eu-west-2.amazonaws.com/staticgh.gentinghotel.co.uk/uploads/hero/SuiteNov2022_0008_1920.jpg,34

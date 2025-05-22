@@ -21,8 +21,7 @@ public class CartRepository {
         carts = FileUtil.loadFromFile(CARTS_FILE, line -> {
             String[] parts = line.split(",");
             if (parts.length >= 2) {
-                Cart cart = new Cart(parts[0], parts[1]); // id, userId
-
+                Cart cart = new Cart(parts[0], parts[1]);
                 for (int i = 2; i < parts.length; i++) {
                     String[] itemParts = parts[i].split(":");
                     if (itemParts.length == 2) {

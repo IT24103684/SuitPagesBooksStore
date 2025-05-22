@@ -53,7 +53,6 @@ public class BookService {
     }
 
     public BookDTO createBook(BookDTO bookDTO) {
-
         if (bookRepository.existsByIsbn(bookDTO.getIsbn())) {
             throw new IllegalArgumentException("ISBN already exists");
         }
@@ -71,7 +70,6 @@ public class BookService {
         Optional<Book> existingBook = bookRepository.findById(id);
 
         if (existingBook.isPresent()) {
-
             if (!existingBook.get().getIsbn().equals(bookDTO.getIsbn()) &&
                     bookRepository.existsByIsbn(bookDTO.getIsbn())) {
                 throw new IllegalArgumentException("ISBN already exists");

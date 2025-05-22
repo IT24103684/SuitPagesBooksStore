@@ -24,11 +24,9 @@ public class OrderDTO {
     @Valid
     private List<OrderItemDTO> items = new ArrayList<>();
 
-    // Default constructor
     public OrderDTO() {
     }
 
-    // Constructor for creating a new order
     public OrderDTO(String userId, String address) {
         this.userId = userId;
         this.address = address;
@@ -36,7 +34,6 @@ public class OrderDTO {
         this.orderDate = LocalDateTime.now();
     }
 
-    // Full constructor
     public OrderDTO(String id, String userId, String address, String status, LocalDateTime orderDate, List<OrderItemDTO> items) {
         this.id = id;
         this.userId = userId;
@@ -46,7 +43,6 @@ public class OrderDTO {
         this.items = items;
     }
 
-    // Getters and setters
     public String getId() {
         return id;
     }
@@ -95,7 +91,6 @@ public class OrderDTO {
         this.items = items;
     }
 
-    // Static inner class for order items
     public static class OrderItemDTO {
         @NotBlank(message = "Book ID is required")
         private String bookId;
@@ -108,18 +103,15 @@ public class OrderDTO {
         @Min(value = 0, message = "Price must be non-negative")
         private Double price;
 
-        // Default constructor
         public OrderItemDTO() {
         }
 
-        // Full constructor
         public OrderItemDTO(String bookId, Integer quantity, Double price) {
             this.bookId = bookId;
             this.quantity = quantity;
             this.price = price;
         }
 
-        // Getters and setters
         public String getBookId() {
             return bookId;
         }

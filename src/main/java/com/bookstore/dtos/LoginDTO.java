@@ -19,7 +19,6 @@ public class LoginDTO {
         this.email = email;
         this.password = password;
     }
-    qq
     public String getEmail() {
         return email;
     }
