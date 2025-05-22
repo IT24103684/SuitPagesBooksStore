@@ -45,6 +45,7 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen font-sans">
+<!-- Navigation Bar -->
 <nav class="bg-indigo-600 text-white shadow-lg">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
@@ -70,6 +71,7 @@
             </div>
         </div>
     </div>
+    <!-- Mobile Navigation Menu -->
     <div class="md:hidden hidden bg-indigo-700" id="mobileMenu">
         <div class="container mx-auto px-4 py-2">
             <div class="flex flex-col space-y-2 pb-3">
@@ -82,6 +84,7 @@
     </div>
 </nav>
 
+<!-- Breadcrumb and Page Title -->
 <div class="bg-white shadow">
     <div class="container mx-auto px-4 py-3">
         <div class="flex items-center text-sm text-gray-600">
@@ -92,7 +95,9 @@
     </div>
 </div>
 
+<!-- Main Content -->
 <div class="container mx-auto px-4 py-8">
+    <!-- Header with actions -->
     <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div class="mb-4 md:mb-0">
             <h1 class="text-2xl font-bold text-gray-800">Order Management</h1>
@@ -115,7 +120,9 @@
         </div>
     </div>
 
+    <!-- Notification area -->
     <div id="notificationArea" class="mb-6 hidden">
+        <!-- Success notification -->
         <div id="successNotification" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded flex items-start">
             <div class="flex-shrink-0">
                 <i class="fas fa-check-circle mt-0.5"></i>
@@ -128,6 +135,7 @@
             </button>
         </div>
 
+        <!-- Error notification -->
         <div id="errorNotification" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded flex items-start">
             <div class="flex-shrink-0">
                 <i class="fas fa-exclamation-circle mt-0.5"></i>
@@ -141,6 +149,7 @@
         </div>
     </div>
 
+    <!-- Orders Table -->
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
@@ -183,9 +192,11 @@
         </div>
     </div>
 
+    <!-- Pagination (will be dynamically shown based on page count) -->
     <div id="pagination-container"></div>
 </div>
 
+<!-- Order View Modal -->
 <div id="viewOrderModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -234,6 +245,7 @@
 
                         <h4 class="text-sm font-medium text-gray-500 mt-6">Order Items</h4>
                         <div id="viewOrderItems" class="mt-2 space-y-3">
+                            <!-- Order items will be loaded here -->
                         </div>
 
                         <div class="mt-4 flex justify-end">
@@ -251,6 +263,7 @@
     </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
 <div id="deleteOrderModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -290,6 +303,7 @@
     </div>
 </div>
 
+<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay" style="display: none;">
     <div class="flex flex-col items-center">
         <i class="fas fa-spinner fa-spin text-4xl text-indigo-600 mb-3"></i>
@@ -304,19 +318,24 @@
         </div>
     </div>
 </footer>
+
 <script>
+    // Global variables
     let allOrders = [];
     let filteredOrders = [];
     let userCache = {};
     let bookCache = {};
     let currentOrderId = null;
 
+    // DOM elements
     const ordersTableBody = document.getElementById("ordersTableBody");
     const searchInput = document.getElementById("searchInput");
     const statusFilter = document.getElementById("statusFilter");
     const loadingOverlay = document.getElementById("loadingOverlay");
 
+    // Event listeners
     document.addEventListener("DOMContentLoaded", function() {
+        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -326,22 +345,28 @@
 
         fetchOrders();
 
+        // Search functionality
         searchInput.addEventListener("input", filterOrders);
         statusFilter.addEventListener("change", filterOrders);
 
+        // Update status button
         document.getElementById("updateStatusBtn").addEventListener("click", updateOrderStatus);
 
+        // Confirm delete button
         document.getElementById("confirmDeleteBtn").addEventListener("click", deleteOrder);
     });
 
+    // Show loading overlay
     function showLoading() {
         loadingOverlay.style.display = "flex";
     }
 
+    // Hide loading overlay
     function hideLoading() {
         loadingOverlay.style.display = "none";
     }
 
+    // Fetch all orders
     function fetchOrders() {
         showLoading();
 
@@ -369,13 +394,16 @@
             });
     }
 
+    // Enrich orders with user and book data
     function enrichOrdersData(orders) {
         const userPromises = [];
         const bookPromises = [];
 
+        // Collect unique user IDs and book IDs
         const userIds = [...new Set(orders.map(order => order.userId))];
         const bookIds = [...new Set(orders.flatMap(order => order.items.map(item => item.bookId)))];
 
+        // Fetch user data
         userIds.forEach(userId => {
             if (!userCache[userId]) {
                 const promise = fetch("/api/users/" + userId)
@@ -392,6 +420,7 @@
             }
         });
 
+        // Fetch book data
         bookIds.forEach(bookId => {
             if (!bookCache[bookId]) {
                 const promise = fetch("/api/books/" + bookId)
@@ -408,6 +437,7 @@
             }
         });
 
+        // Wait for all promises to resolve
         Promise.all([...userPromises, ...bookPromises])
             .then(() => {
                 renderOrdersTable(filteredOrders);
@@ -420,18 +450,22 @@
             });
     }
 
+    // Filter orders based on search input and status filter
     function filterOrders() {
         const searchTerm = searchInput.value.toLowerCase();
         const statusValue = statusFilter.value;
 
         filteredOrders = allOrders.filter(order => {
+            // Filter by status
             if (statusValue && order.status !== statusValue) {
                 return false;
             }
 
+            // Filter by search term
             if (searchTerm) {
                 const user = userCache[order.userId] || { name: "Unknown User" };
 
+                // Search in order ID, user name, address
                 return order.id.toLowerCase().includes(searchTerm) ||
                     user.name.toLowerCase().includes(searchTerm) ||
                     order.address.toLowerCase().includes(searchTerm);
@@ -443,6 +477,7 @@
         renderOrdersTable(filteredOrders);
     }
 
+    // Render orders to the table
     function renderOrdersTable(orders) {
         if (orders.length === 0) {
             ordersTableBody.innerHTML =
@@ -466,12 +501,13 @@
                 year: "numeric", month: "short", day: "numeric"
             });
 
+            // Calculate order total
             let orderTotal = 0;
             order.items.forEach(item => {
                 orderTotal += item.price * item.quantity;
             });
 
-
+            // Status badge class
             let statusClass = "";
             switch(order.status) {
                 case "PENDING":
@@ -490,6 +526,7 @@
                     statusClass = "bg-gray-100 text-gray-800";
             }
 
+            // Create table row
             html +=
                 "<tr class=\"table-row-animate transition-all duration-200\" data-id=\"" + order.id + "\">" +
                 "<td class=\"px-6 py-4 whitespace-nowrap text-sm text-gray-900\">" +
@@ -528,6 +565,7 @@
         ordersTableBody.innerHTML = html;
     }
 
+    // Show empty orders message
     function showEmptyOrders() {
         ordersTableBody.innerHTML =
             "<tr>" +
@@ -542,6 +580,7 @@
         hideLoading();
     }
 
+    // Open view modal
     function openViewModal(orderId) {
         currentOrderId = orderId;
         const order = allOrders.find(o => o.id === orderId);
@@ -554,19 +593,23 @@
             hour: "2-digit", minute: "2-digit"
         });
 
+        // Calculate order total
         let orderTotal = 0;
         order.items.forEach(item => {
             orderTotal += item.price * item.quantity;
         });
 
+        // Set modal values
         document.getElementById("viewOrderId").textContent = order.id;
         document.getElementById("viewOrderDate").textContent = formattedDate;
         document.getElementById("viewCustomerName").textContent = user.name;
         document.getElementById("viewAddress").textContent = order.address;
 
+        // Set current status
         const statusElement = document.getElementById("viewCurrentStatus");
         statusElement.textContent = order.status;
 
+        // Set status class based on status
         let statusClass = "";
         switch(order.status) {
             case "PENDING":
@@ -586,10 +629,13 @@
         }
         statusElement.className = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium " + statusClass;
 
+        // Set status dropdown to current value
         document.getElementById("updateStatus").value = order.status;
 
+        // Set order total
         document.getElementById("viewOrderTotal").textContent = "$" + orderTotal.toFixed(2);
 
+        // Render order items
         const viewOrderItems = document.getElementById("viewOrderItems");
         let itemsHtml = "";
 
@@ -617,14 +663,17 @@
 
         viewOrderItems.innerHTML = itemsHtml;
 
+        // Show modal
         document.getElementById('viewOrderModal').classList.remove('hidden');
     }
 
+    // Update order status
     function updateOrderStatus() {
         showLoading();
 
         const newStatus = document.getElementById("updateStatus").value;
 
+        // Send PATCH request to update status
         fetch("/api/orders/" + currentOrderId + "/status", {
             method: "PATCH",
             headers: {
@@ -641,6 +690,7 @@
                 return response.json();
             })
             .then(updatedOrder => {
+                // Update order in the list
                 const index = allOrders.findIndex(o => o.id === currentOrderId);
                 if (index !== -1) {
                     allOrders[index] = updatedOrder;
@@ -697,12 +747,15 @@
                     throw new Error("Failed to delete order");
                 }
 
+                // Remove order from the list
                 allOrders = allOrders.filter(o => o.id !== currentOrderId);
-                filterOrders();
+                filterOrders(); // Re-apply filters and render
 
+                // Close modal
                 closeModal('deleteOrderModal');
                 hideLoading();
 
+                // Show success message
                 showNotification("success", "Order deleted successfully");
             })
             .catch(error => {

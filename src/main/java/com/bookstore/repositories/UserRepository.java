@@ -55,7 +55,6 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        // If user exists, update it
         Optional<User> existingUser = findById(user.getId());
 
         if (existingUser.isPresent()) {

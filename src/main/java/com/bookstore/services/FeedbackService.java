@@ -51,17 +51,14 @@ public class FeedbackService {
     }
 
     public FeedbackDTO createFeedback(FeedbackDTO feedbackDTO) {
-        // Check if user exists
         if (!userRepository.findById(feedbackDTO.getUserId()).isPresent()) {
             throw new IllegalArgumentException("User not found");
         }
 
-        // Check if book exists
         if (!bookRepository.findById(feedbackDTO.getBookId()).isPresent()) {
             throw new IllegalArgumentException("Book not found");
         }
 
-        // Check if user already gave feedback for this book
         if (feedbackRepository.existsByUserIdAndBookId(feedbackDTO.getUserId(), feedbackDTO.getBookId())) {
             throw new IllegalArgumentException("User already gave feedback for this book");
         }
@@ -77,7 +74,6 @@ public class FeedbackService {
         Optional<Feedback> existingFeedback = feedbackRepository.findById(id);
 
         if (existingFeedback.isPresent()) {
-            // Cannot change book or user
             feedbackDTO.setBookId(existingFeedback.get().getBookId());
             feedbackDTO.setUserId(existingFeedback.get().getUserId());
 

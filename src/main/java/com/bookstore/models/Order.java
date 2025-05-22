@@ -27,7 +27,6 @@ public class Order extends BaseEntity {
         this.orderDate = LocalDateTime.now();
     }
 
-    // Constructor with id for file loading
     public Order(String id, String userId, String address, String status, LocalDateTime orderDate) {
         super(id);
         this.userId = userId;

@@ -11,8 +11,6 @@ import com.bookstore.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,12 +50,10 @@ public class OrderService {
     }
 
     public OrderDTO createOrder(String userId, String address) {
-        // Check if user exists
         if (!userRepository.findById(userId).isPresent()) {
             throw new IllegalArgumentException("User not found");
         }
 
-        // Get cart
         Optional<Cart> cartOpt = cartRepository.findByUserId(userId);
 
         if (!cartOpt.isPresent() || cartOpt.get().getItems().isEmpty()) {
@@ -66,10 +62,8 @@ public class OrderService {
 
         Cart cart = cartOpt.get();
 
-        // Create order
         Order order = new Order(userId, address);
 
-        // Add items to order
         for (Cart.CartItem cartItem : cart.getItems()) {
             Optional<Book> bookOpt = bookRepository.findById(cartItem.getBookId());
 
@@ -79,26 +73,21 @@ public class OrderService {
 
             Book book = bookOpt.get();
 
-            // Check stock
             if (book.getInStock() < cartItem.getQuantity()) {
                 throw new IllegalArgumentException("Not enough books in stock: " + book.getName());
             }
 
-            // Add item to order
             order.addItem(new Order.OrderItem(
                     cartItem.getBookId(),
                     cartItem.getQuantity(),
                     book.getPrice()
             ));
 
-            // Decrease stock
             bookRepository.decreaseStock(book.getId(), cartItem.getQuantity());
         }
 
-        // Save order
         Order savedOrder = orderRepository.save(order);
 
-        // Clear cart
         cartRepository.clearCart(userId);
 
         return convertToDTO(savedOrder);
@@ -127,7 +116,6 @@ public class OrderService {
 
         Order order = orderOpt.get();
 
-        // If order is not yet delivered, return items to stock
         if (!order.getStatus().equalsIgnoreCase("DELIVERED")) {
             for (Order.OrderItem item : order.getItems()) {
                 bookRepository.increaseStock(item.getBookId(), item.getQuantity());

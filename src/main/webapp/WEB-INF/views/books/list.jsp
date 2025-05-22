@@ -7,13 +7,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
+        body {
+            background-image:
+                    url('https://images.wallpaperscraft.com/image/single/books_library_photoshop_127118_1920x1080.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        nav {
+            background:#002147;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
         .table-row-animate:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease-in-out;
         }
 
         .btn-icon {
-            transition: transform 0.15s ease-in-out;
+            transition: transform 0.15s ease-in-out, color 0.15s ease;
         }
 
         .btn-icon:hover {
@@ -23,10 +40,58 @@
         .modal {
             transition: opacity 0.25s ease;
         }
+
+        .bg-white {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .book-cover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-badge {
+            transition: all 0.2s ease;
+        }
+
+        .category-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background:#002147;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.5);
+        }
+
+        .add-btn {
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .add-btn:hover {
+            box-shadow: 0 10px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .empty-state-icon {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen font-sans">
-<nav class="bg-indigo-600 text-white shadow-lg">
+<nav class="fixed top-0 left-0 right-0 z-50 text-white shadow-lg">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <div class="flex items-center space-x-4">
@@ -63,20 +128,19 @@
 
 <div class="bg-white shadow">
     <div class="container mx-auto px-4 py-3">
-        <div class="flex items-center text-sm text-gray-600">
-            <a href="/admin" class="hover:text-indigo-600">Dashboard</a>
+        <div class="flex items-center text-sm text-#002147">
+            <a href="/admin" class="hover:text-#002147">Dashboard</a>
             <span class="mx-2">/</span>
-            <span class="text-gray-800 font-medium">Books</span>
+            <span class="font-medium">Books</span>
         </div>
     </div>
 </div>
 
 <div class="container mx-auto px-4 py-8">
-
     <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div class="mb-4 md:mb-0">
-            <h1 class="text-2xl font-bold text-gray-800">Books</h1>
-            <p class="text-gray-600">Manage your book inventory</p>
+            <h1 class="text-2xl font-bold text-white">Books</h1>
+            <p class="text-white opacity-90">Manage your book inventory</p>
         </div>
         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             <div class="relative">
@@ -92,7 +156,6 @@
     </div>
 
     <div id="notificationArea" class="mb-6 hidden">
-
         <div id="successNotification" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded flex items-start">
             <div class="flex-shrink-0">
                 <i class="fas fa-check-circle mt-0.5"></i>
@@ -118,35 +181,33 @@
         </div>
     </div>
 
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-#6ca0dc shadow-md rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Book
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Category
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Price
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Stock
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Actions
                     </th>
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200" id="booksTableBody">
-
                 </tbody>
             </table>
         </div>
     </div>
-
 
     <div id="pagination-container"></div>
 </div>
@@ -189,20 +250,20 @@
     </div>
 </div>
 
-<footer class="bg-white border-t mt-10 py-6">
+<footer class="border-t mt-10 py-6">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0">
-                <p class="text-sm text-gray-600">&copy; 2023 BookApp. All rights reserved.</p>
+                <p class="text-sm text-white">&copy; 2023 BookApp. All rights reserved.</p>
             </div>
             <div class="flex space-x-4">
-                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                <a href="#" class="text-white hover:text-indigo-600">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                <a href="#" class="text-white hover:text-indigo-600">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-indigo-600">
+                <a href="#" class="text-white hover:text-indigo-600">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -211,7 +272,6 @@
 </footer>
 
 <script>
-
     document.getElementById('mobileMenuButton').addEventListener('click', function() {
         const mobileMenu = document.getElementById('mobileMenu');
         mobileMenu.classList.toggle('hidden');
@@ -262,21 +322,21 @@
     }
 
     function deleteBook(id) {
-        fetch(/api/books/+id, {
+        fetch(`/api/books/`+id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-    .then(response => {
-            if (response.ok) {
-                closeModal();
-                showNotification('success', 'Book deleted successfully');
-                loadBooks(); // Reload the books list
-            } else {
-                throw new Error('Failed to delete book');
-            }
-        })
+            .then(response => {
+                if (response.ok) {
+                    closeModal();
+                    showNotification('success', 'Book deleted successfully');
+                    loadBooks(); // Reload the books list
+                } else {
+                    throw new Error('Failed to delete book');
+                }
+            })
             .catch(error => {
                 closeModal();
                 showNotification('error', error.message);
@@ -286,7 +346,7 @@
     function loadBooks() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-        fetch('/api/books')
+        fetch('/api/books/sorted-by-price') // Change this line
             .then(response => response.json())
             .then(books => {
                 const tableBody = document.getElementById('booksTableBody');
@@ -298,20 +358,18 @@
                 );
 
                 if (filteredBooks.length === 0) {
-
                     tableBody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="px-6 py-10 text-center">
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-book text-gray-300 text-5xl mb-4"></i>
-                                <p class="text-gray-500 text-lg font-medium">No books found</p>
-                                <p class="text-gray-400 mt-1">Try adjusting your search or add a new book</p>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+                <tr>
+                    <td colspan="5" class="px-6 py-10 text-center">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-book text-gray-300 text-5xl mb-4"></i>
+                            <p class="text-gray-500 text-lg font-medium">No books found</p>
+                            <p class="text-gray-400 mt-1">Try adjusting your search or add a new book</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
                 } else {
-                    // Render each book
                     filteredBooks.forEach(book => {
                         const row = document.createElement('tr');
                         row.className = 'table-row-animate transition-all hover:bg-gray-50';
@@ -352,7 +410,6 @@
 
                         tableBody.appendChild(row);
                     });
-
                 }
             })
             .catch(error => {

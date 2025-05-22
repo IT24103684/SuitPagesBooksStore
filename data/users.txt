@@ -1,0 +1,3 @@
+f6349e76-8cdd-4f0b-9461-78546aa0df90,kamal,kamal@gmail.com,walgama/mathara,112233,male
+47c8ef56-92fb-4cfd-9801-6f915c7fc694,Pehesara W.A.C,IT24103684@my.sliit.lk,walgama/galle,123456,male
+6fd1298c-f346-4a82-b616-42c1fd83bc0a,ChathukaPehesar,22chathuka@gmail.com,walgama/galle,123456,male

@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Book</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/@lucide/web@latest"></script>
     <style>
+        /* Custom focus styles for better accessibility */
         .focus-ring:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
@@ -182,7 +184,9 @@
         </div>
     </form>
 </div>
+
 <script>
+    // Initialize Lucide icons
     document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
 
@@ -192,6 +196,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const authorSelect = document.getElementById('authorId');
 
+        // Fetch authors for dropdown
         fetchAuthors();
 
         const patterns = {
@@ -200,6 +205,7 @@
             imageUrl: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))?$/
         };
 
+        // Fetch authors function
         function fetchAuthors() {
             fetch('/api/authors')
                 .then(response => {
@@ -209,10 +215,12 @@
                     return response.json();
                 })
                 .then(authors => {
+                    // Clear existing options except the first one
                     while (authorSelect.options.length > 1) {
                         authorSelect.remove(1);
                     }
 
+                    // Add author options
                     authors.forEach(author => {
                         const option = document.createElement('option');
                         option.value = author.id;
@@ -273,9 +281,11 @@
         bookForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Hide any previous messages
             errorMessage.classList.add('hidden');
             successMessage.classList.add('hidden');
 
+            // Get form fields
             const name = document.getElementById('name');
             const isbn = document.getElementById('isbn');
             const category = document.getElementById('category');
@@ -284,6 +294,7 @@
             const authorId = document.getElementById('authorId');
             const imageUrl = document.getElementById('imageUrl');
 
+            // Validate all fields
             const isNameValid = validateField(name, patterns.name);
             const isIsbnValid = validateField(isbn, patterns.isbn);
             const isCategoryValid = validateField(category);
@@ -293,7 +304,7 @@
             const isImageUrlValid = validateField(imageUrl, patterns.imageUrl);
 
             if (isNameValid && isIsbnValid && isCategoryValid && isPriceValid && isInStockValid && isAuthorIdValid && isImageUrlValid) {
-
+                // Show loading state
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...';
 
@@ -307,6 +318,7 @@
                     imageUrl: imageUrl.value.trim() || null
                 };
 
+                // Send data to server
                 fetch('/api/books', {
                     method: 'POST',
                     headers: {
@@ -323,21 +335,27 @@
                         return response.json();
                     })
                     .then(data => {
+                        // Reset form
                         bookForm.reset();
 
+                        // Show success message
                         showSuccess('Book created successfully!');
 
+                        // Reset button state
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = '<i data-lucide="save" class="h-5 w-5 mr-2"></i>Create Book';
                         lucide.createIcons();
-                        y
+
+                        // Redirect after a delay
                         setTimeout(() => {
                             window.location.href = '/books';
                         }, 2000);
                     })
                     .catch(error => {
+                        // Show error message
                         showError(error.message || 'An error occurred while creating the book');
 
+                        // Reset button state
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = '<i data-lucide="save" class="h-5 w-5 mr-2"></i>Create Book';
                         lucide.createIcons();

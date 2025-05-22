@@ -22,11 +22,11 @@ public class AdminRepository {
             String[] parts = line.split(",");
             if (parts.length >= 5) {
                 return new Admin(
-                        parts[0], // id
-                        parts[1], // name
-                        parts[2], // email
-                        parts[3], // password
-                        parts[4]  // nicNumber
+                        parts[0],
+                        parts[1],
+                        parts[2],
+                        parts[3],
+                        parts[4]
                 );
             }
             return null;

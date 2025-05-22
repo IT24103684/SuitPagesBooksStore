@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +8,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <style>
+
+        body {
+            background-image:
+                    url('https://th.bing.com/th/id/R.98c05cfe22e136b17396350934af9c3b?rik=Cyow7yuXcXCpIw&pid=ImgRaw&r=0.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
         .table-row-animate:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -20,6 +30,23 @@
         .btn-icon:hover {
             transform: scale(1.15);
         }
+        nav {
+            background:#002147;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        footer {
+            background:#002147;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .bg-white {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
 
         .modal {
             transition: opacity 0.25s ease;
@@ -27,7 +54,8 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen font-sans">
-<nav class="bg-indigo-600 text-white shadow-lg">
+
+<nav class="text-white shadow-lg">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <div class="flex items-center space-x-4">
@@ -61,6 +89,7 @@
         </div>
     </div>
 </nav>
+
 <div class="bg-white shadow">
     <div class="container mx-auto px-4 py-3">
         <div class="flex items-center text-sm text-gray-600">
@@ -70,29 +99,29 @@
         </div>
     </div>
 </div>
+
 <div class="container mx-auto px-4 py-8">
     <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div class="mb-4 md:mb-0">
-            <h1 class="text-2xl font-bold text-gray-800">Admins</h1>
-            <p class="text-gray-600">Manage admin accounts for the system</p>
+            <h1 class="text-2xl font-bold text-white">Admins</h1>
+            <p class="text-white">Manage admin accounts for the system</p>
         </div>
         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             <div class="relative">
-                <input type="text" id="searchInput" placeholder="Search admins..."
-                       class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                <input type="text" id="searchInput" placeholder="Search admins..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
                     <i class="fas fa-search text-gray-400"></i>
                 </div>
             </div>
-            <a href="/admins/create"
-               class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md flex items-center justify-center transition">
+            <a href="/admins/create" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md flex items-center justify-center transition">
                 <i class="fas fa-plus mr-2"></i> Add Admin
             </a>
         </div>
     </div>
+
     <div id="notificationArea" class="mb-6 hidden">
-        <div id="successNotification"
-             class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded flex items-start">
+
+        <div id="successNotification" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded flex items-start">
             <div class="flex-shrink-0">
                 <i class="fas fa-check-circle mt-0.5"></i>
             </div>
@@ -103,8 +132,8 @@
                 <i class="fas fa-times text-green-700"></i>
             </button>
         </div>
-        <div id="errorNotification"
-             class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded flex items-start">
+
+        <div id="errorNotification" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded flex items-start">
             <div class="flex-shrink-0">
                 <i class="fas fa-exclamation-circle mt-0.5"></i>
             </div>
@@ -116,25 +145,22 @@
             </button>
         </div>
     </div>
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+
+    <div class="bg-#6ca0dc shadow-md rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Admin
                     </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Email
                     </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Nic Number
                     </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Actions
                     </th>
                 </tr>
@@ -144,8 +170,10 @@
             </table>
         </div>
     </div>
+
     <div id="pagination-container"></div>
 </div>
+
 <div id="deleteModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
     <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -173,12 +201,10 @@
                 </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" id="confirmDeleteBtn"
-                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                <button type="button" id="confirmDeleteBtn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                     Delete
                 </button>
-                <button type="button" onclick="closeModal()"
-                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                     Cancel
                 </button>
             </div>
@@ -186,15 +212,29 @@
     </div>
 </div>
 
-<footer class="bg-white border-t mt-10 py-6">
+<footer class="border-t py-6 fixed bottom-0 w-full">
     <div class="container mx-auto px-4">
-        <div class="text-center text-gray-500 text-sm">
-            &copy; 2025 BookApp Admin Panel. All rights reserved.
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <p class="text-sm text-white">&copy; 2023 BookApp. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </div>
 </footer>
 
 <script>
+
     let admins = [];
 
     async function loadAdmins() {
@@ -204,24 +244,29 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', async function () {
+    document.addEventListener('DOMContentLoaded', async function() {
         await loadAdmins();
+
         const mobileMenuButton = document.getElementById('mobileMenuButton');
         const mobileMenu = document.getElementById('mobileMenu');
 
-        mobileMenuButton.addEventListener('click', function () {
+        mobileMenuButton.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
         });
+
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('success')) {
             showNotification('success', urlParams.get('success'));
         }
+
         populateAdminsTable(admins);
+
         if (admins.length > 10) {
             setupPagination(admins.length);
         }
+
         const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function () {
+        searchInput.addEventListener('input', function() {
             const searchText = this.value.toLowerCase();
             filterAdmins(searchText);
         });
@@ -241,7 +286,9 @@
                 row.className = 'table-row-animate transition-all duration-200';
                 row.setAttribute('data-id', admin.id);
                 row.setAttribute('data-name', admin.name);
+
                 const initials = admin.name.charAt(0);
+
                 let statusClass = 'bg-green-100 text-green-800';
                 let statusText = admin.nicNumber;
 
@@ -267,6 +314,7 @@
         );
 
         populateAdminsTable(filteredAdmins);
+
         const tableBody = document.getElementById('adminsTableBody');
         if (filteredAdmins.length === 0 && searchText !== '') {
             const noResultsRow = document.createElement('tr');
@@ -289,22 +337,26 @@
     }
 
     let currentAdminId = null;
+
     function confirmDelete(id, name) {
         currentAdminId = id;
         document.getElementById('modal-description').innerText = 'Are you sure you want to delete "' + name + '"? This action cannot be undone.';
         document.getElementById('deleteModal').classList.remove('hidden');
         document.getElementById('confirmDeleteBtn').addEventListener('click', deleteAdmin);
     }
+
     function closeModal() {
         document.getElementById('deleteModal').classList.add('hidden');
         document.getElementById('confirmDeleteBtn').removeEventListener('click', deleteAdmin);
         currentAdminId = null;
     }
+
     function deleteAdmin() {
         if (!currentAdminId) return;
 
         const row = document.querySelector('tr[data-id=\"' + currentAdminId + '\"]');
         const adminName = row ? row.getAttribute('data-name') : '';
+
         const deleteBtn = document.getElementById('confirmDeleteBtn');
         const originalBtnText = deleteBtn.innerHTML;
         deleteBtn.innerHTML = '<i class=\"fas fa-spinner fa-spin mr-2\"></i> Deleting...';
@@ -326,14 +378,17 @@
                         });
                     }
                 }
+
                 closeModal();
+
                 if (row) {
-                    row.style.backgroundColor = '#FEE2E2'; // Light red background
+                    row.style.backgroundColor = '#FEE2E2';
                     row.style.transition = 'opacity 0.5s ease';
                     setTimeout(() => {
                         row.style.opacity = '0';
                         setTimeout(() => {
                             row.remove();
+
                             const remainingRows = document.querySelectorAll('#adminsTableBody tr[data-id]');
                             if (remainingRows.length === 0) {
                                 const tableBody = document.getElementById('adminsTableBody');
@@ -354,12 +409,15 @@
                 showNotification('error', error.message);
             });
     }
+
     function showNotification(type, message) {
         const notificationArea = document.getElementById('notificationArea');
         const successNotification = document.getElementById('successNotification');
         const errorNotification = document.getElementById('errorNotification');
+
         successNotification.classList.add('hidden');
         errorNotification.classList.add('hidden');
+
         if (type === 'success') {
             document.getElementById('successMessage').textContent = message;
             successNotification.classList.remove('hidden');
@@ -367,13 +425,17 @@
             document.getElementById('errorMessage').textContent = message;
             errorNotification.classList.remove('hidden');
         }
+
         notificationArea.classList.remove('hidden');
+
         setTimeout(() => {
             hideNotification(type === 'success' ? 'successNotification' : 'errorNotification');
         }, 5000);
     }
+
     function hideNotification(id) {
         document.getElementById(id).classList.add('hidden');
+
         if (document.getElementById('successNotification').classList.contains('hidden') &&
             document.getElementById('errorNotification').classList.contains('hidden')) {
             document.getElementById('notificationArea').classList.add('hidden');

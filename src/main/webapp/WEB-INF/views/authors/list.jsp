@@ -6,12 +6,38 @@
     <title>Authors List</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
     <style>
+
+        body {
+            background-image:url('https://wallpaperaccess.com/full/253342.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        .bg-white {
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
         .table-row-animate:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+        nav {
+            background:#002147;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
 
+        footer {
+            background:#002147;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(5px);
+        }
         .btn-icon {
             transition: transform 0.15s ease-in-out;
         }
@@ -26,7 +52,7 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen font-sans">
-<nav class="bg-indigo-600 text-white shadow-lg">
+<nav class="fixed top-0 left-0 right-0 z-50 text-white shadow-lg">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
             <div class="flex items-center space-x-4">
@@ -76,8 +102,8 @@
 <div class="container mx-auto px-4 py-8">
     <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
         <div class="mb-4 md:mb-0">
-            <h1 class="text-2xl font-bold text-gray-800">Authors</h1>
-            <p class="text-gray-600">Manage author information for your books</p>
+            <h1 class="text-2xl font-bold text-white">Authors</h1>
+            <p class="text-white">Manage author information for your books</p>
         </div>
         <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             <div class="relative">
@@ -118,21 +144,21 @@
         </div>
     </div>
 
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-#6ca0dc shadow-md rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Author
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Gender
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Age
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-#6ca0dc uppercase tracking-wider">
                         Actions
                     </th>
                 </tr>
@@ -184,10 +210,23 @@
     </div>
 </div>
 
-<footer class="bg-white border-t mt-10 py-6">
+<footer class="border-t mt-10 py-6">
     <div class="container mx-auto px-4">
-        <div class="text-center text-gray-500 text-sm">
-            &copy; 2025 BookApp Admin Panel. All rights reserved.
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <p class="text-sm text-white">&copy; 2023 BookApp. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="text-white hover:text-indigo-600">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </div>
 </footer>

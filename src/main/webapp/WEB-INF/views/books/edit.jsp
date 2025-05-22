@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Book</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/@lucide/web@latest"></script>
     <style>
+
         .focus-ring:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
@@ -37,7 +39,7 @@
     </div>
 
     <form id="bookForm" class="space-y-6">
-        <!-- Hidden input for book ID -->
+
         <input type="hidden" id="id" name="id" value="${book.id}">
 
         <div class="relative">
@@ -228,7 +230,6 @@
                     return response.json();
                 })
                 .then(authors => {
-                    // Clear existing options except the first one
                     while (authorSelect.options.length > 1) {
                         authorSelect.remove(1);
                     }
@@ -314,7 +315,6 @@
             const isImageUrlValid = validateField(imageUrl, patterns.imageUrl);
 
             if (isNameValid && isIsbnValid && isCategoryValid && isPriceValid && isInStockValid && isAuthorIdValid && isImageUrlValid) {
-
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Processing...';
 
@@ -345,7 +345,6 @@
                         return response.json();
                     })
                     .then(data => {
-
                         showSuccess('Book updated successfully!');
 
                         submitBtn.disabled = false;
@@ -353,7 +352,6 @@
                         lucide.createIcons();
                     })
                     .catch(error => {
-
                         showError(error.message || 'An error occurred while updating the book');
 
                         submitBtn.disabled = false;
@@ -375,13 +373,10 @@
                         if (!response.ok) {
                             throw new Error('Failed to delete book');
                         }
-
                         window.location.href = '/books';
                     })
                     .catch(error => {
-
                         showError(error.message || 'An error occurred while deleting the book');
-
 
                         deleteBtn.disabled = false;
                         deleteBtn.innerHTML = '<i data-lucide="trash-2" class="h-5 w-5 mr-2"></i>Delete';
