@@ -4,77 +4,65 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedList<T> implements Iterable<T> {
-    private Node<T> head;
-    private Node<T> tail;
+    private Link<T> First;
+    private Link<T> Last;
     private int size;
 
-    private static class Node<T> {
+    private static class Link<T> {
         T data;
-        Node<T> next;
+        Link<T> next;
 
-        Node(T data) {
+        Link(T data) {
             this.data = data;
             this.next = null;
         }
     }
 
     public LinkedList() {
-        head = null;
-        tail = null;
+        First = null;
+        Last = null;
         size = 0;
     }
 
     public void add(T data) {
-        Node<T> newNode = new Node<>(data);
+        Link<T> newNode = new Link<>(data);
 
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
+        if (First == null) {
+            First = newNode;
+            Last = newNode;
         } else {
-            tail.next = newNode;
-            tail = newNode;
+            Last.next = newNode;
+            Last = newNode;
         }
 
         size++;
     }
 
     public void addFirst(T data) {
-        Node<T> newNode = new Node<>(data);
+        Link<T> newNode = new Link<>(data);
 
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
+        if (First == null) {
+            First = newNode;
+            Last = newNode;
         } else {
-            newNode.next = head;
-            head = newNode;
+            newNode.next = First;
+            First = newNode;
         }
 
         size++;
     }
 
-    public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
-        }
-
-        Node<T> current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-
-        return current.data;
-    }
 
     public T removeFirst() {
-        if (head == null) {
-            throw new NoSuchElementException();
+        if (First == null) {
+            System.out.println("List is empty");
         }
 
-        T data = head.data;
-        head = head.next;
+        T data = First.data;
+        First = First.next;
 
-        if (head == null) {
-            tail = null;
+        if (First == null) {
+            Last = null;
         }
 
         size--;
@@ -82,26 +70,26 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public T removeLast() {
-        if (head == null) {
-            throw new NoSuchElementException();
+        if (First == null) {
+            System.out.println("List is empty");
         }
 
-        if (head == tail) {
-            T data = head.data;
-            head = null;
-            tail = null;
+        if (First == Last) {
+            T data = First.data;
+            First = null;
+            Last = null;
             size--;
             return data;
         }
 
-        Node<T> current = head;
-        while (current.next != tail) {
+        Link<T> current = First;
+        while (current.next != Last) {
             current = current.next;
         }
 
-        T data = tail.data;
-        tail = current;
-        tail.next = null;
+        T data = Last.data;
+        Last = current;
+        Last.next = null;
 
         size--;
         return data;
@@ -120,7 +108,7 @@ public class LinkedList<T> implements Iterable<T> {
             return removeLast();
         }
 
-        Node<T> prev = head;
+        Link<T> prev = First;
         for (int i = 0; i < index - 1; i++) {
             prev = prev.next;
         }
@@ -133,16 +121,16 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     public boolean remove(T item) {
-        if (head == null) {
+        if (First == null) {
             return false;
         }
 
-        if (head.data.equals(item)) {
+        if (First.data.equals(item)) {
             removeFirst();
             return true;
         }
 
-        Node<T> current = head;
+        Link<T> current = First;
         while (current.next != null && !current.next.data.equals(item)) {
             current = current.next;
         }
@@ -151,8 +139,8 @@ public class LinkedList<T> implements Iterable<T> {
             return false;
         }
 
-        if (current.next == tail) {
-            tail = current;
+        if (current.next == Last) {
+            Last = current;
         }
 
         current.next = current.next.next;
@@ -169,16 +157,10 @@ public class LinkedList<T> implements Iterable<T> {
         return size == 0;
     }
 
-    public void clear() {
-        head = null;
-        tail = null;
-        size = 0;
-    }
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private Node<T> current = head;
+            private Link<T> current = First;
 
             @Override
             public boolean hasNext() {
@@ -197,24 +179,5 @@ public class LinkedList<T> implements Iterable<T> {
         };
     }
 
-    public Object[] toArray() {
-        Object[] array = new Object[size];
-        Node<T> current = head;
-        int index = 0;
 
-        while (current != null) {
-            array[index++] = current.data;
-            current = current.next;
-        }
-
-        return array;
-    }
-
-    public static <T> LinkedList<T> fromArray(T[] array) {
-        LinkedList<T> list = new LinkedList<>();
-        for (T item : array) {
-            list.add(item);
-        }
-        return list;
-    }
 }
