@@ -1,4 +1,4 @@
-package com.bookstore.Controllers;
+package com.bookstore.controllers;
 
 import com.bookstore.dtos.AdminDTO;
 import com.bookstore.dtos.LoginDTO;
@@ -72,4 +72,14 @@ public class AdminController {
                     .body(Map.of("error", "Invalid email or password"));
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        // Simple logout endpoint
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Logged out successfully"
+        ));
+    }
+
 }

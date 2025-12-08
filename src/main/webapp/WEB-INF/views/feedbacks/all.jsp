@@ -10,6 +10,7 @@
         .feedback-card {
             transition: all 0.3s ease;
             border-radius: 0.5rem;
+            background-color: white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         .feedback-card:hover {
@@ -33,6 +34,7 @@
         }
         .book-select-card {
             cursor: pointer;
+            background-color: white;
             transition: all 0.2s ease;
             border: 2px solid transparent;
         }
@@ -43,14 +45,45 @@
             border: 2px solid #3b82f6;
             background-color: #eff6ff;
         }
+
+        #deleteModal p.text-gold-700 {
+            color: #1f2937 !important;
+        }
+
+        #feedbacksContainer p.text-gold-600 {
+            color: #6b7280 !important;
+        }
+
+        .alert-danger {
+            color: #dc2626 !important;
+            background-color: #fee2e2 !important;
+        }
+
+        #createComment,
+        #createBookSelect,
+        #comment,
+        #bookSelect {
+            color: #111827 !important;
+            background-color: white !important;
+        }
+
+        #createComment::placeholder,
+        textarea::placeholder {
+            color: #6b7280 !important;
+        }
+
+        #createFeedbackSection {
+            background-color: white !important;
+        }
+
+
     </style>
 </head>
 <body class="bg-gray-50">
 
-
 <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Book Feedback</h1>
+        <h1 class="text-3xl font-bold ">Book Feedback</h1>
         <button id="addFeedbackBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
             <i class="fas fa-plus mr-2"></i>Add Feedback
         </button>
@@ -58,7 +91,7 @@
 
     <div id="createFeedbackSection" class="hidden mb-8 bg-white p-6 rounded-lg shadow-md">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold">Add New Feedback</h2>
+            <h2 class="text-xl font-semibold text-gray-900">Add New Feedback</h2>
             <button id="closeCreateSection" class="text-gray-400 hover:text-gray-600">
                 <i class="fas fa-times"></i>
             </button>
@@ -98,7 +131,7 @@
     </div>
 
     <div id="bookSelectionSection" class="hidden mb-8">
-        <h2 class="text-xl font-semibold mb-4">Select a Book to Review</h2>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Select a Book to Review</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="booksContainer">
         </div>
     </div>
@@ -174,6 +207,7 @@
 </div>
 
 <script>
+    // ALL JAVASCRIPT CODE REMAINS EXACTLY THE SAME AS YOUR ORIGINAL
     let currentUserId = localStorage.getItem('userId');
     let books = [];
     let feedbacks = [];
@@ -185,8 +219,6 @@
     const createFeedbackSection = document.getElementById('createFeedbackSection');
 
     document.addEventListener('DOMContentLoaded', function() {
-
-
         loadBooks();
         loadFeedbacks();
 
@@ -316,7 +348,7 @@
                 '<img src="' + (book.imageUrl || 'https://via.placeholder.com/60x90') + '" alt="' + book.name + '" class="w-16 h-24 object-cover rounded">' +
                 '<div>' +
                 '<h5 class="font-medium">' + book.name + '</h5>' +
-                '<p class="text-sm text-gray-600">' + book.category + '</p>' +
+                '<p class="text-sm ">' + book.category + '</p>' +
                 '</div>' +
                 '</div>';
 
@@ -364,7 +396,7 @@
             bookSection.innerHTML =
                 '<div class="flex items-center mb-4">' +
                 '<img src="' + (book.imageUrl || 'https://via.placeholder.com/60x90') + '" alt="' + book.name + '" class="w-12 h-16 object-cover rounded mr-3">' +
-                '<h3 class="text-xl font-semibold">' + book.name + '</h3>' +
+                '<h3 class="text-xl font-semibold text-gray-900">' + book.name + '</h3>' +
                 '</div>';
 
             const feedbacksList = document.createElement('div');

@@ -45,4 +45,14 @@ public class AdminViewController {
     public String viewAdminCustomers() {
         return "auth/all";
     }
+
+    @GetMapping("/admin/login")
+    public String adminLoginPage() {
+        return "admin/login";
+    }
+
+    @GetMapping("/admin/dashboard")
+    public String adminDashboard() {
+        return "admin/dashboard";
+    }
 }

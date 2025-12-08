@@ -102,4 +102,9 @@ public class AdminService {
                 adminDTO.getNicNumber()
         );
     }
+
+    public boolean logout() {
+
+        return true;
+    }
 }

@@ -10,45 +10,486 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        :root {
+            --gold: #D4AF37;
+            --deep-blue: #1a365d;
+            --velvet: #2d3748;
+            --emerald: #10b981;
+            --ruby: #dc2626;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg,
+            #0f172a 0%,
+            #1e293b 50%,
+            #0f172a 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 40%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-section {
+            background-image:
+                    linear-gradient(135deg, rgba(10, 25, 47, 0.95) 0%, rgba(26, 54, 93, 0.95) 100%),
+                    url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg,
+            transparent 45%,
+            rgba(212, 175, 55, 0.1) 50%,
+            transparent 55%);
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
         .book-card {
-            transition: all 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
-            max-width: 250px;
-            height: 400px;
+            max-width: 280px;
+            height: 480px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
         }
-        .book-card img {
+
+        .book-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow:
+                    0 35px 70px rgba(0, 0, 0, 0.7),
+                    0 0 100px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold);
+            border-width: 2px;
+        }
+
+        .book-image-container {
+            height: 220px;
             width: 100%;
-            height: 200px;
-            object-fit: contain; /* Changed to contain to show full image */
-            background-color: #f9f9f9; /* Optional: Adds a light background if image is smaller */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
-        .book-card .p-4 {
-            padding: 1rem;
+
+        .book-image-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(212, 175, 55, 0.5),
+            transparent);
+        }
+
+        .book-image {
+            max-height: 180px;
+            max-width: 150px;
+            object-fit: contain;
+            transition: transform 0.6s ease;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
+            transform-origin: center;
+        }
+
+        .book-card:hover .book-image {
+            transform: scale(1.15) rotate(1deg);
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.7));
+        }
+
+        .book-content {
+            padding: 24px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+        }
+
+        .book-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+        }
+
+        .book-meta {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .book-footer {
+            margin-top: auto;
+            display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
         }
-        .book-card .border-t {
-            padding: 0.5rem;
+
+        .book-price {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold) 0%, #F59E0B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+            position: relative;
+            padding-left: 20px;
         }
-        .hero-section {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+
+        .book-price::before {
+            content: '$';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        .stock-indicator {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 15px;
+        }
+
+        .stock-high {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stock-low {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .stock-none {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: #1a202c;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .add-to-cart-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--emerald) 0%, #059669 100%);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+            transition: left 0.6s ease;
+        }
+
+        .add-to-cart-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow:
+                    0 10px 25px rgba(16, 185, 129, 0.4),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .add-to-cart-btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        .add-to-cart-btn:disabled {
+            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .category-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            color: #cbd5e1;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(212, 175, 55, 0.2),
+            transparent);
+            transition: left 0.6s ease;
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: #1a202c;
+            font-weight: 600;
+            border-color: var(--gold);
+            box-shadow:
+                    0 0 30px rgba(212, 175, 55, 0.6),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        #searchInput {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow:
+                    0 15px 40px rgba(0, 0, 0, 0.3),
+                    0 0 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        #searchInput + button {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+        }
+
+        #searchInput + button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        #authorsContainer > div {
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #authorsContainer > div:hover {
+            transform: translateY(-10px);
+            box-shadow:
+                    0 20px 40px rgba(0, 0, 0, 0.4),
+                    0 0 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+
+        #authorsContainer img {
+            border: 3px solid var(--gold);
+            padding: 3px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        #loadingIndicator > div {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        #noResults {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        #noResults i {
+            color: var(--gold);
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+        }
+
+        .bg-indigo-700 {
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #2d3748 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-indigo-700::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .bg-indigo-700 input[type="email"] {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .bg-indigo-700 input[type="email"]:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow:
+                    0 15px 40px rgba(0, 0, 0, 0.3),
+                    0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-top: 3px solid var(--gold);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+            transparent,
+            rgba(212, 175, 55, 0.5),
+            transparent);
+        }
+
+        footer a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        footer .text-gray-400:hover {
+            color: var(--gold) !important;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: #1a202c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
     </style>
 </head>
 <body class="bg-gray-50">
 <jsp:include page="common/navbar.jsp"/>
 
+<!-- Hero Section -->
 <div class="hero-section py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
@@ -74,6 +515,7 @@
     </div>
 </div>
 
+<!-- Category Filters  -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
     <div class="flex flex-wrap items-center justify-center gap-3" id="categoryFilters">
         <button class="category-btn px-4 py-2 bg-indigo-600 text-white rounded-full text-sm font-medium hover:bg-indigo-700" data-category="all">All Books</button>
@@ -85,8 +527,9 @@
     </div>
 </div>
 
+<!-- Books Section  -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Featured Books</h2>
+    <h2 class="text-3xl font-extrabold mb-8">Featured Books</h2>
     <div id="loadingIndicator" class="flex justify-center items-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
     </div>
@@ -101,6 +544,7 @@
     </div>
 </div>
 
+<!-- Authors Section  -->
 <div class="bg-gray-100 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Featured Authors</h2>
@@ -109,6 +553,7 @@
     </div>
 </div>
 
+<!-- Newsletter Section -->
 <div class="bg-indigo-700 text-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl font-extrabold mb-4">Stay Updated with New Releases</h2>
@@ -123,7 +568,11 @@
         </div>
     </div>
 </div>
+
+<!-- Feedback Section -->
 <jsp:include page="./feedbacks/all.jsp"/>
+
+<!-- Footer -->
 <footer class="bg-gray-800 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -131,16 +580,16 @@
                 <h3 class="text-xl font-semibold mb-4">LiteraryRealm</h3>
                 <p class="text-gray-400">Your premier destination for quality literature from around the world.</p>
                 <div class="mt-6 flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white">
+                    <a href="#" class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
+                    <a href="#" class="social-icon">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
+                    <a href="#" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
+                    <a href="#" class="social-icon">
                         <i class="fab fa-pinterest"></i>
                     </a>
                 </div>
@@ -160,22 +609,22 @@
                 <ul class="space-y-2 text-gray-400">
                     <li class="flex items-center">
                         <i class="fas fa-map-marker-alt mr-3"></i>
-                        <span>123 Book Street, Reading, RG1 2LR</span>
+                        <span>123 Book Street, Galle, Srilanka</span>
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-phone mr-3"></i>
-                        <span>+44 (0) 123 456 7890</span>
+                        <span>+7441 118 890 0</span>
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-envelope mr-3"></i>
-                        <span>info@literaryrealm.com</span>
+                        <span>info@SuitPages.com</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 LiteraryRealm. All rights reserved.</p>
+            <p>&copy; 2025 SuitPages. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -224,7 +673,7 @@
                     throw new Error("Network response was not ok");
                 }
                 allAuthors = await response.json();
-                renderFeaturedAuthors(allAuthors.slice(3, 6)); // Show first 3 authors as featured
+                renderFeaturedAuthors(allAuthors.slice(3, 6));
             } catch (error) {
                 console.error("Error fetching authors:", error);
             }
@@ -249,7 +698,7 @@
                     "</div>" +
                     "<div class='mt-4 text-center'>" +
                     "<h3 class='text-lg font-bold'>" + author.name + "</h3>" +
-                    "<p class='text-gray-600 mt-1'>" + (author.gender || "Author") + "</p>" +
+                    "<p class='text-gold-600 mt-1'>" + (author.gender || "Author") + "</p>" +
                     "<p class='mt-3 text-sm text-gray-500'>" + (author.bio || "Renowned author with multiple publications") + "</p>" +
                     "</div>";
 
@@ -273,7 +722,7 @@
                 bookCard.className = "book-card bg-white rounded-lg shadow-md overflow-hidden";
 
                 const addToCartButton = isLoggedIn ?
-                    "<button class='add-to-cart-btn w-full py-2 bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors' data-id='" + book.id + "'>" +
+                    "<button class='add-to-cart-btn w-full py-2  text-white font-medium hover:bg-indigo-700 transition-colors' data-id='" + book.id + "'>" +
                     "<i class='fas fa-shopping-cart mr-2'></i>Add to Cart" +
                     "</button>" :
                     "<button class='w-full py-2 bg-gray-300 text-gray-600 font-medium cursor-not-allowed'>" +
@@ -281,18 +730,18 @@
                     "</button>";
 
                 bookCard.innerHTML =
-                    "<div class='overflow-hidden flex justify-center items-center' style='height: 160px;'>" + // Keep a fixed height for the container
-                    "<img src='" + (book.imageUrl || "https://via.placeholder.com/300x400?text=No+Image") + "' alt='" + book.name + "' class='max-h-full max-w-full object-contain'>" + // Use object-contain to show the full image
+                    "<div class='overflow-hidden flex justify-center items-center' style='height: 160px;'>" +
+                    "<img src='" + (book.imageUrl || "https://via.placeholder.com/300x400?text=No+Image") + "' alt='" + book.name + "' class='max-h-full max-w-full object-contain'>" +
                     "</div>" +
                     "<div class='p-4'>" +
                     "<div class='flex justify-between items-start'>" +
-                    "<h3 class='text-lg font-bold text-gray-900'>" + book.name + "</h3>" +
+                    "<h3 class='text-lg font-bold '>" + book.name + "</h3>" +
                     "<span class='px-2 py-1 bg-indigo-100 text-indigo-800 text-xs font-medium rounded-full'>" + book.category + "</span>" +
                     "</div>" +
-                    "<p class='text-sm text-gray-500 mt-1'>ISBN: " + book.isbn + "</p>" +
-                    (author ? "<p class='text-sm text-gray-600 mt-1'>Author: " + author.name + "</p>" : "") +
+                    "<p class='text-sm  mt-1'>ISBN: " + book.isbn + "</p>" +
+                    (author ? "<p class='text-sm  mt-1'>Author: " + author.name + "</p>" : "") +
                     "<div class='mt-4 flex justify-between items-center'>" +
-                    "<p class='text-lg font-bold text-indigo-600'>$" + book.price.toFixed(2) + "</p>" +
+                    "<p class='text-lg font-bold '>$" + book.price.toFixed(2) + "</p>" +
                     "<p class='text-sm " + (book.inStock > 10 ? "text-green-600" : book.inStock > 0 ? "text-yellow-600" : "text-red-600") + "'>" +
                     (book.inStock > 10 ? "In Stock" : book.inStock > 0 ? "Low Stock" : "Out of Stock") +
                     "</p>" +
@@ -357,7 +806,6 @@
                     btn.classList.add("bg-gray-200", "text-gray-800");
                 });
 
-
                 this.classList.remove("bg-gray-200", "text-gray-800");
                 this.classList.add("bg-indigo-600", "text-white");
 
@@ -386,12 +834,10 @@
                 }
             });
 
-            // Reset filters and render all books
             filteredBooks = [...allBooks];
             renderBooks(filteredBooks);
         });
 
-        // Initialize: fetch books and authors
         fetchBooks();
         fetchAuthors();
     });
