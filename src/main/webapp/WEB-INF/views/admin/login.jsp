@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | Bookstore</title>
+    <!-- ADD Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -79,6 +81,16 @@
 </div>
 
 <script>
+    // ADD THIS LOGIN CHECK TO YOUR login.jsp
+    document.addEventListener('DOMContentLoaded', function() {
+        const adminId = localStorage.getItem('adminId');
+
+        // If already logged in, redirect to dashboard
+        if (adminId) {
+            window.location.href = '/admin/dashboard';
+        }
+    });
+
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
         document.getElementById("loginButtonText").textContent = "Signing in...";
@@ -107,7 +119,12 @@
                 return response.json();
             })
             .then(function (data) {
-                window.location.href = "/admin";
+                // Store admin data
+                localStorage.setItem('adminId', data.id);
+                localStorage.setItem('adminEmail', data.email);
+                localStorage.setItem('adminName', data.name);
+
+                window.location.href = "/admin/dashboard";
             })
             .catch(function (error) {
                 var errorMessage = document.getElementById("errorMessage");
